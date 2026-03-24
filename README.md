@@ -1,9 +1,9 @@
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
 # lorecpp-myst
 
+[안영기](https://github.com/smgal)님이 개발한 [또 다른 지식의 성전 3부 비전속으로](https://namu.wiki/w/%EB%98%90%EB%8B%A4%EB%A5%B8%20%EC%A7%80%EC%8B%9D%EC%9D%98%20%EC%84%B1%EC%A0%84)의 [파스칼 소스코드](https://github.com/smgal/LoreTrilogy_1993)를 LLM 기반의 코딩 에이전트를 이용해 SDL 과 C++ 로 포팅한 버전의 저장소 입니다.
 
-안영기(@smgal)님이 개발한 [또 다른 지식의 성전 3부 비전속으로](https://namu.wiki/w/%EB%98%90%EB%8B%A4%EB%A5%B8%20%EC%A7%80%EC%8B%9D%EC%9D%98%20%EC%84%B1%EC%A0%84)의 [파스칼 소스코드](https://github.com/smgal/LoreTrilogy_1993)를 LLM 기반의 코딩 에이전트를 이용해 SDL 과 C++ 로 포팅한 버전의 저장소 입니다.
-
+![screenshot](https://github.com/user-attachments/assets/f56367ca-9594-4bb2-9f7c-164e943c1db3)
 
 ## 구현
 
