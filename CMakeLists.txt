@@ -29,6 +29,7 @@ add_executable(mystic
 )
 
 if(MSVC)
+    target_sources(mystic PRIVATE win32/mystic.rc)
     target_compile_definitions(mystic PRIVATE _CRT_SECURE_NO_WARNINGS)
     target_compile_options(mystic PRIVATE /utf-8)
     set_target_properties(mystic PROPERTIES WIN32_EXECUTABLE "$<CONFIG:Release>")
