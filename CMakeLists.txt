@@ -3,9 +3,12 @@ project(mystic)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(SDL2 CONFIG REQUIRED)
-
-include_directories(${SDL2_INCLUDE_DIRS} include)
+if(NOT EMSCRIPTEN)
+    find_package(SDL2 CONFIG REQUIRED)
+    include_directories(${SDL2_INCLUDE_DIRS} src)
+else()
+    include_directories(src)
+endif()
 
 add_executable(mystic
     src/main.cpp 
@@ -35,13 +38,36 @@ if(MSVC)
     set_target_properties(mystic PROPERTIES WIN32_EXECUTABLE "$<CONFIG:Release>")
 endif()
 
-target_link_libraries(mystic ${SDL2_LIBRARIES})
+if(EMSCRIPTEN)
+    target_compile_options(mystic PRIVATE -sUSE_SDL=2 -sASYNCIFY -sASSERTIONS=2 -sUSE_PTHREADS=1)
+    target_link_options(mystic PRIVATE 
+        -sUSE_SDL=2 
+        -sUSE_SDL_MIXER=2
+        -sUSE_SDL_IMAGE=2
+        -sALLOW_MEMORY_GROWTH=1 
+        -sASYNCIFY
+        -sASSERTIONS=2
+        -sSAFE_HEAP=1
+        -sUSE_PTHREADS=1
+        -sPTHREAD_POOL_SIZE=4
+        --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets
+    )
+    set_target_properties(mystic PROPERTIES
+        OUTPUT_NAME "index"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/docs"
+        SUFFIX ".html"
+    )
+else()
+    target_link_libraries(mystic ${SDL2_LIBRARIES})
+endif()
 
-set_target_properties(mystic PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}"
+if(NOT EMSCRIPTEN)
+    set_target_properties(mystic PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}"
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}"
 
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-    VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:mystic>"
-)
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+        VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:mystic>"
+    )
+endif()
