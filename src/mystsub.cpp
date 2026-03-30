@@ -715,10 +715,10 @@ void Load() {
     // ---------------------------------------------------------------
     QuitPlay = true;
     switch (position) {
-        case town:   existfile = "Music2.Bgm"; break;
-        case ground: existfile = "Music3.Bgm"; break;
-        case den:    existfile = "Music4.Bgm"; break;
-        case keep:   existfile = "Music5.Bgm"; break;
+        case town:   existfile = "MUSIC2.BGM"; break;
+        case ground: existfile = "MUSIC3.BGM"; break;
+        case den:    existfile = "MUSIC4.BGM"; break;
+        case keep:   existfile = "MUSIC5.BGM"; break;
     }
 
     std::string base_name = "";

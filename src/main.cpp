@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
     InitSound();
 
     AdLibOn = true;
-    LoadBank(std::string("assets\\") + "Mystic.Cmd");
+    LoadBank(std::string("assets/") + "MYSTIC.CMD");
 
     // Init game logic
     InitMystSub();
@@ -136,7 +136,8 @@ int main(int argc, char* argv[]) {
                  mapname == "TrolTown" || mapname == "Valhalla" ||
                  mapname == "Ground5");
 
-            target_bgm = hasMapBgm ? (mapname + ".Bgm") : existfile;
+            target_bgm = hasMapBgm ? (mapname + ".BGM") : existfile;
+            for (auto& c : target_bgm) c = (char)toupper((unsigned char)c);
 
             const bool bgmChanged  = (current_bgm != target_bgm);
             const bool songEnded   = !IsSongPlaying() && !current_bgm.empty();
@@ -147,7 +148,7 @@ int main(int argc, char* argv[]) {
                 // 실행하면 플레이어 내부 상태 경합(race condition) 없이 안전하다.
                 AudioLock();
                 PlayOff();
-                LoadSong("assets\\" + target_bgm);
+                LoadSong("assets/" + target_bgm);
                 AudioUnlock();      // PlaySong 전에 먼저 unlock
 
                 PlaySong();         // 비동기 재생 시작 (fill 스레드 + SDL 콜백 활성화)
